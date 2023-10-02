@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": true,
+    "[json][yaml][yml][markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
