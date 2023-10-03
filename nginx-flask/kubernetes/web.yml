@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: LoadBalancer
+  selector:
+    web: nginx
+  ports:
+    - name: 80-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  labels:
+    web: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      web: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        web: nginx
+        role: frontend
+    spec:
+      containers:
+        - image: web:latest
+          imagePullPolicy: IfNotPresent
+          name: web-container
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+      restartPolicy: Always
